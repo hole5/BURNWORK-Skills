@@ -48,11 +48,13 @@ license: MIT
 ## 工作流
 
 0. **阐述下沉**：按 [导演阐述下沉检查](references/director-brief-sink.md) 读取 `项目开发/director-brief.md`（若有），抽出镜头语法/禁区/回报节奏后再设计；无阐述不阻断，末报标明「未锁定导演阐述」。导演 pass 或整集正式分镜时，**每一场**做 Coverage Audition。
+0b. **风格透镜**：用户点名时加载 [style-lenses](references/style-lenses/README.md) 中一套；与阐述冲突时阐述优先。
+0c. **光锁**：连续场次按 [灯光圣经](references/lighting-bible.md) 锁主光方向/色温；单镜写法仍见 lighting-craft。
 1. 读取已接受的目标模型原生时长区间，再确认每个场景动作、对白、声音、画面文字和转折由哪些镜头承载。
 2. 确定观众何时知道什么、对齐谁、空间如何揭示、转折落在哪个可见动作。
    剧本或 Brief 用“前半段 / 后半段 / 前三分之一 / 最后 N 秒”等相对时间限定首次出现、释放或禁止时，
    先用已接受集长换成明确时间边界再分镜；例如 60 秒作品的“后半段首次出现”不得早于 30 秒。
-3. 每镜写清唯一职责、来源、时长、景别/机位、运镜、起点、唯一主要动作、终点和声音；用
+3. 每镜写清唯一职责、来源、时长、景别/机位、运镜、起点、唯一主要动作、终点和声音；按 [镜头难度](references/shot-difficulty.md) 标注 `难度：S|M|L|XL`（缺省 M）；用
    `起点 → 唯一动作 → 终点` 直接说明人物、双手与持物怎样完成本镜状态转换。三条依据留到第 6 步。
    「运镜」按本镜目的逐镜选，写行为和理由，固定也写理由，见 [运镜逐镜选](references/shot-craft.md#运镜逐镜选-sht-04)。
    有对白、VO 或 OS 时，先按原文和人物说话方式估算完整发声时间，再安排不能重叠的动作、停顿与
@@ -157,7 +159,11 @@ license: MIT
 - 镜头职责、切镜理由、镜长推导、对白覆盖和边界：[镜头手艺](references/shot-craft.md)
 - 实际制作所需的镜头语法：[生产镜头语法](references/production-shot-grammar.md)
 - 阐述约束如何进入分镜：[导演阐述下沉检查](references/director-brief-sink.md)
-- 关键场次比较导演方案：[场次视觉计划](references/scene-visual-plan.md)
+- 可选风格透镜：[style-lenses](references/style-lenses/README.md)
+- 跨镜光锁：[灯光圣经](references/lighting-bible.md)
+- 难度与重试预算：[镜头难度](references/shot-difficulty.md)
+- 可选结构化导出：[Shot IR](references/shot-ir.md)
+- 单场次比较导演方案：[场次视觉计划](references/scene-visual-plan.md)
 - 检查原文是否都有画面承载：[Coverage Audition](references/coverage-audition.md)
 - 多人、群体和复杂空间调度：[调度手册](references/blocking-playbooks.md)
 - 谁被照亮、怎么写才执行得出：[光的设计](references/lighting-craft.md)

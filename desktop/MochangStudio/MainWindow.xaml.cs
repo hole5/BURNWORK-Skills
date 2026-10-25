@@ -2310,6 +2310,13 @@ public partial class MainWindow : Window
             Margin = new Thickness(0, 0, 0, 8),
         });
         panel.Children.Add(BuildFiveDocProgress());
+        panel.Children.Add(new TextBlock
+        {
+            Text = "导演台",
+            FontWeight = FontWeights.SemiBold,
+            Margin = new Thickness(0, 16, 0, 8),
+        });
+        panel.Children.Add(BuildDirectorDesk());
         panel.Children.Add(new Border
         {
             Height = 1,
@@ -2451,6 +2458,55 @@ public partial class MainWindow : Window
             });
         }
         return wrap;
+    }
+
+    private UIElement BuildDirectorDesk()
+    {
+        var panel = new StackPanel();
+        var ep = _episodes.FirstOrDefault(e => e.Id == _episodeId) ?? _episodes.FirstOrDefault();
+        var has = ep is null ? null : (_series?["episodes"] as JsonArray)?
+            .OfType<JsonObject>()
+            .FirstOrDefault(o => Str(o["id"]) == ep.Id)?["has"] as JsonObject;
+        var brief = !string.IsNullOrEmpty(_projectRoot)
+            && System.IO.File.Exists(System.IO.Path.Combine(_projectRoot, "项目开发", "director-brief.md"));
+        var sound = !string.IsNullOrEmpty(_projectRoot) && ep is not null
+            && System.IO.File.Exists(System.IO.Path.Combine(_projectRoot, "剧集", ep.Id, "声音计划.md"));
+        var shots = ep?.Shots ?? 0;
+        var boardOk = has?["board"]?.GetValue<bool>() == true;
+        var lines = new List<string>
+        {
+            brief ? "导演阐述：已有 director-brief.md" : "导演阐述：未锁定（分镜可不阻断）",
+            boardOk ? $"分镜 Coverage：已有分镜 · {shots} 镜（正式 pass 应每场试听）" : "分镜 Coverage：尚无分镜",
+            sound ? "声音计划：已有" : "声音计划：可选未写",
+            "风格透镜 / 难度 / QC：由导演 pass 与分镜字段声明；生产按难度重试预算",
+        };
+        foreach (var line in lines)
+        {
+            panel.Children.Add(new TextBlock
+            {
+                Text = "· " + line,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 0, 0, 4),
+                Foreground = (Brush)FindResource("SoftInkBrush"),
+                FontSize = 12,
+            });
+        }
+        var row = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 8, 0, 0) };
+        void AddAction(string label, Action click)
+        {
+            var b = new Button { Content = label, Style = (Style)FindResource("GhostButton"), Margin = new Thickness(0, 0, 8, 0) };
+            b.Click += (_, _) => click();
+            row.Children.Add(b);
+        }
+        var id = ep?.Id ?? _episodeId ?? "本集";
+        AddAction("跑导演 pass", () => QueueSkill("short-drama",
+            $"请按导演总控 pass 过一遍 {id}：阐述下沉、风格透镜可选、每场 Coverage、难度标注、提示词对账与自检；不要自动生产。"));
+        AddAction("写声音计划", () => QueueSkill("short-drama-video-prompts",
+            $"请为 {id} 写可选的声音计划.md（对白/底声/静默/音乐策略）。"));
+        AddAction("导出 shot-IR", () => QueueSkill("short-drama-storyboard",
+            $"请按 shot-ir 约定从 {id} 分镜导出制作成果/shot-ir.json（不改 Markdown 真相）。"));
+        panel.Children.Add(row);
+        return panel;
     }
 
     private UIElement BuildPrompts()

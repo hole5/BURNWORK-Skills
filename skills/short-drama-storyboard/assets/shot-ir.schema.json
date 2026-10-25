@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aifk.uk/schemas/shot-ir.schema.json",
+  "title": "Burnwork Shot IR (optional)",
+  "description": "Optional machine-readable projection of 分镜.md. Markdown remains the creative source of truth.",
+  "type": "object",
+  "required": ["schema_version", "episode", "shots"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "episode": { "type": "string", "pattern": "^EP[0-9]{3,}$" },
+    "style_lens": { "type": ["string", "null"] },
+    "shots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["shot_id", "purpose", "duration_seconds", "difficulty"],
+        "properties": {
+          "shot_id": { "type": "string" },
+          "scene_ids": { "type": "array", "items": { "type": "string" } },
+          "purpose": { "type": "string" },
+          "duration_seconds": { "type": "number", "minimum": 0 },
+          "difficulty": { "enum": ["S", "M", "L", "XL"] },
+          "framing": {
+            "type": "object",
+            "properties": {
+              "size": { "type": "string" },
+              "angle": { "type": "string" },
+              "move": { "type": "string" }
+            }
+          },
+          "start": { "type": "string" },
+          "action": { "type": "string" },
+          "end": { "type": "string" },
+          "sound": { "type": "string" },
+          "visual_basis": { "type": "array", "items": { "type": "string" } },
+          "refs": { "type": "array", "items": { "type": "string" } },
+          "light_lock": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}
