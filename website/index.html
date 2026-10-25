@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title">燃烧工作室 · 本机 AI 短剧创作工作台</title>
+  <meta name="description" content="燃烧工作室（BURNWORK）：本机短剧工作台。技能负责理解与编排，ComfyUI 负责出图出视频，五份 Markdown 与素材留在你的设备里。" />
+  <link rel="icon" href="assets/brand-mark.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Serif+SC:wght@500;700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="brand" href="index.html">
+      <img src="assets/brand-mark.png" alt="" width="36" height="36" />
+      <span class="brand-name" data-i18n="brand.name">燃烧工作室</span>
+      <span class="brand-en">BURNWORK</span>
+    </a>
+    <nav class="nav" data-i18n-aria="nav.label">
+      <a href="#stack" data-i18n="nav.stack">产品能力</a>
+      <a href="#flow" data-i18n="nav.flow">工作流</a>
+      <a href="#pricing" data-i18n="nav.pricing">获取方式</a>
+      <a href="#support" data-i18n="nav.support">更新与支持</a>
+    </nav>
+    <div class="top-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="zh" data-i18n="lang.zh" aria-pressed="true">中文</button>
+        <button type="button" data-lang="en" data-i18n="lang.en" aria-pressed="false">EN</button>
+      </div>
+      <a class="link-quiet" href="skills.html" data-i18n="action.skills">技能库</a>
+      <a class="btn btn-solid" href="#start" data-i18n="action.open">打开工作室</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">BURNWORK STUDIO · 本机短剧工作台</p>
+        <h1>
+          <span class="hero-brand">BURNWORK Studio</span>
+          <span class="hero-line" data-i18n="hero.line1">把一句想法，</span>
+          <span class="hero-line"><em data-i18n="hero.burn">烧成</em><span data-i18n="hero.line2">可继续拍的镜头</span></span>
+        </h1>
+        <p class="lede" data-i18n="hero.lede">本机技能理解原文与创意，拆解剧本、角色与分镜；自部署 ComfyUI 承接图像与视频。项目、素材和创作记录留在你的设备里。</p>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="#start" data-i18n="hero.cta1">查看启动方式</a>
+          <a class="btn btn-ghost" href="#flow" data-i18n="hero.cta2">了解工作流</a>
+        </div>
+        <p class="meta" data-i18n="hero.meta">Windows 独立窗口 · 本机优先 · 你的设备，你的数据</p>
+      </div>
+      <div class="hero-visual" aria-label="Workbench preview">
+        <div class="stage-glow" aria-hidden="true"></div>
+        <figure class="stage">
+          <img class="stage-bg" src="assets/home-center-bg.png" alt="" />
+          <div class="stage-chrome">
+            <div class="stage-side">
+              <span class="chip" data-i18n="stage.home">首页</span>
+              <span data-i18n="stage.projects">项目</span>
+              <span data-i18n="stage.settings">设置</span>
+            </div>
+            <div class="stage-main">
+              <p class="stage-kicker">BURNWORK</p>
+              <p class="stage-quote" data-i18n="stage.quote">把脑海里的画面，交给 BURNWORK 拍出来</p>
+              <div class="stage-input" data-i18n="stage.input">输入镜头、画面或故事…</div>
+            </div>
+          </div>
+          <figcaption data-i18n="stage.cap">真实工作台气质 · 本机运行</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="stack">
+      <p class="section-kicker">LOCAL PRODUCTION STACK</p>
+      <h2 data-i18n="stack.h2">一套本机可控的短剧生产三件套</h2>
+      <p class="section-lede" data-i18n="stack.lede">不是把功能堆在一起，而是让故事、资产和生成任务在同一个项目里持续向前。</p>
+
+      <div class="pillars">
+        <article>
+          <span class="pillar-mark">S</span>
+          <h3 data-i18n="stack.s.h">技能创作中枢</h3>
+          <p data-i18n="stack.s.p">在本机理解原文与创意，拆解角色、剧本和分镜，并把每一步组织成可继续执行的任务。</p>
+          <ul>
+            <li data-i18n="stack.s.1">创意与小说解析</li>
+            <li data-i18n="stack.s.2">剧本和分镜编排</li>
+            <li data-i18n="stack.s.3">可检查、可迭代的任务流</li>
+          </ul>
+        </article>
+        <article>
+          <span class="pillar-mark">C</span>
+          <h3 data-i18n="stack.c.h">ComfyUI 生成引擎</h3>
+          <p data-i18n="stack.c.p">连接你配置的自部署 ComfyUI，统一承接角色、美术、分镜图片和视频生成。</p>
+          <ul>
+            <li data-i18n="stack.c.1">参考图与资产引用</li>
+            <li data-i18n="stack.c.2">图片、视频任务预览</li>
+            <li data-i18n="stack.c.3">确认后再投产</li>
+          </ul>
+        </article>
+        <article>
+          <span class="pillar-mark">A</span>
+          <h3 data-i18n="stack.a.h">五文档资产沉淀</h3>
+          <p data-i18n="stack.a.p">每集五份 Markdown 就是创作事实；素材、引用与生成记录持续沉淀，跨镜头复用。</p>
+          <ul>
+            <li data-i18n="stack.a.1">角色与美术设定</li>
+            <li data-i18n="stack.a.2">分镜与提示词可追溯</li>
+            <li data-i18n="stack.a.3">本机项目数据可控</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-flow" id="flow">
+      <p class="section-kicker">FROM STORY TO SHOT</p>
+      <h2 data-i18n="flow.h2">从一句想法，到可继续生产的镜头</h2>
+      <p class="section-lede" data-i18n="flow.lede">每一步都有明确的数据、状态和下一步，不再靠散落的提示词维持项目。</p>
+
+      <ol class="steps">
+        <li>
+          <span class="step-num">01</span>
+          <h3 data-i18n="flow.1.h">给出原文或创意</h3>
+          <p data-i18n="flow.1.p">导入小说，或从一句镜头、一段故事开始；也可拖入参考图。</p>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <h3 data-i18n="flow.2.h">确认方案再落稿</h3>
+          <p data-i18n="flow.2.p">先出创作计划，再写剧本、角色、美术和镜头结构。</p>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <h3 data-i18n="flow.3.h">资产进入项目</h3>
+          <p data-i18n="flow.3.p">角色、场景、道具与参考图形成可复用资产，连续性写进文件。</p>
+        </li>
+        <li>
+          <span class="step-num">04</span>
+          <h3 data-i18n="flow.4.h">确认后生成素材</h3>
+          <p data-i18n="flow.4.p">图片和视频先预览参数与路径，明确确认后才交给 ComfyUI。</p>
+        </li>
+      </ol>
+
+      <figure class="board">
+        <div class="board-grid" aria-hidden="true">
+          <div><strong data-i18n="board.1.h">分镜</strong><span data-i18n="board.1.p">景别 · 轴线 · 冻结关键帧</span></div>
+          <div><strong data-i18n="board.2.h">提示词</strong><span data-i18n="board.2.p">IMG · MOTION · 可复制</span></div>
+          <div><strong data-i18n="board.3.h">生产</strong><span data-i18n="board.3.p">预览 → 确认 → 出图出视频</span></div>
+        </div>
+        <figcaption data-i18n="board.cap">分镜、生成状态和素材记录都在项目里</figcaption>
+      </figure>
+    </section>
+
+    <section class="section section-local" id="local">
+      <div class="local-copy">
+        <p class="section-kicker">UPDATES INCLUDED</p>
+        <h2 data-i18n="local.h2">本机优先，也持续进化</h2>
+        <p class="section-lede" data-i18n="local.lede">落在自己设备上的工作台：素材与创作记录默认不出境。技能库与工作室壳会继续迭代工作流和模型接入。</p>
+        <ul class="checks">
+          <li data-i18n="local.1">本地运行</li>
+          <li data-i18n="local.2">数据留在本机</li>
+          <li data-i18n="local.3">先确认，再生产</li>
+        </ul>
+      </div>
+      <div class="local-panel" aria-hidden="true">
+        <p>DOCUMENT / 燃烧工作室</p>
+        <p>projects · skills · assets</p>
+        <p>~/.mochang</p>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <p class="section-kicker">GET STARTED</p>
+      <h2 data-i18n="pricing.h2">获取方式清晰，费用边界清楚</h2>
+      <p class="section-lede" data-i18n="pricing.lede">核心工作台可按仓库自行编译使用；你连接的模型与算力费用由对应服务商收取。若日后提供付费支持包，购买页会单独标明。</p>
+      <div class="start-grid">
+        <article>
+          <h3 data-i18n="pricing.self.h">自建使用</h3>
+          <p data-i18n="pricing.self.p">MIT 上游 + 本机工作室壳。适合独立创作者把生产线留在自己设备上。</p>
+          <ul class="plain-list">
+            <li data-i18n="pricing.self.1">完整本机工作台能力</li>
+            <li data-i18n="pricing.self.2">技能编排与五文档项目</li>
+            <li data-i18n="pricing.self.3">自部署 ComfyUI 出图出视频</li>
+            <li data-i18n="pricing.self.4">项目与资产留在本机</li>
+          </ul>
+        </article>
+        <article>
+          <h3 data-i18n="pricing.sup.h">支持与定制</h3>
+          <p data-i18n="pricing.sup.p">需要协助接入、流程定制或团队落地时，可另行沟通范围与报价。</p>
+          <ul class="plain-list">
+            <li data-i18n="pricing.sup.1">工作流与模型接入协助</li>
+            <li data-i18n="pricing.sup.2">合理范围内的需求沟通</li>
+            <li data-i18n="pricing.sup.3">定制开发按约定交付</li>
+            <li data-i18n="pricing.sup.4">适用服务条款与退款政策</li>
+          </ul>
+        </article>
+      </div>
+      <p class="legal-line" data-i18n-html="legal.line">继续使用本站与软件即表示你同意 <a href="terms.html">服务条款</a>、<a href="privacy.html">隐私政策</a> 与 <a href="refund.html">退款政策</a>，并知悉数字内容与开源许可的交付方式。</p>
+    </section>
+
+    <section class="section" id="support">
+      <p class="section-kicker">UPDATES &amp; SUPPORT</p>
+      <h2 data-i18n="support.h2">更新与支持</h2>
+      <p class="section-lede" data-i18n="support.lede">工作流与模型接入会持续迭代。政策与许可说明可在下列页面查阅。</p>
+      <div class="support-links">
+        <a href="terms.html" data-i18n="legal.terms">服务条款</a>
+        <a href="privacy.html" data-i18n="legal.privacy">隐私政策</a>
+        <a href="refund.html" data-i18n="legal.refund">退款政策</a>
+        <a href="license.html">LICENSE</a>
+        <a href="notice.html">NOTICE</a>
+        <a href="studio.html" data-i18n="support.studio">工作室说明</a>
+      </div>
+    </section>
+
+    <section class="section section-start" id="start">
+      <p class="section-kicker">READY FOR PRODUCTION</p>
+      <h2 data-i18n="start.h2">把下一部短剧，留在自己的工作台里</h2>
+      <p class="section-lede" data-i18n="start.lede">Windows 推荐独立窗口；非 Windows 可用浏览器对照页。上游技能套件以 MIT 开源。</p>
+
+      <div class="start-grid">
+        <article>
+          <h3 data-i18n="start.win.h">Windows 工作室</h3>
+          <p data-i18n="start.win.p">编译并打开本机窗口，浏览五文档、对话与确认后生产。</p>
+          <pre><code>scripts\open-studio.bat</code></pre>
+        </article>
+        <article>
+          <h3 data-i18n="start.web.h">浏览器对照</h3>
+          <p data-i18n="start.web.p">同一套项目后端，适合非 Windows 或对照调试。</p>
+          <pre><code>py -3 skills/short-drama/scripts/studio_launch.py --open</code></pre>
+        </article>
+      </div>
+
+      <div class="cta-row center">
+        <a class="btn btn-solid" href="studio.html" data-i18n="start.doc">阅读工作室说明</a>
+        <a class="btn btn-ghost" href="product.html" data-i18n="start.product">产品边界</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot-brand">
+      <img src="assets/brand-mark.png" alt="" width="28" height="28" />
+      <div>
+        <strong data-i18n="brand.name">燃烧工作室</strong>
+        <span data-i18n="foot.tag">本机 AI 短剧创作工作台 · 技能中枢 × 自部署 ComfyUI</span>
+      </div>
+    </div>
+    <div class="foot-links">
+      <a href="terms.html" data-i18n="legal.terms">服务条款</a>
+      <a href="privacy.html" data-i18n="legal.privacy">隐私政策</a>
+      <a href="refund.html" data-i18n="legal.refund">退款政策</a>
+      <a href="license.html">LICENSE</a>
+      <a href="notice.html">NOTICE</a>
+    </div>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) e.target.classList.add("in");
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".section, .hero-copy, .hero-visual, .pillars article, .steps li, .board, .local-panel, .start-grid article").forEach((el) => {
+      el.classList.add("reveal");
+      io.observe(el);
+    });
+  </script>
+</body>
+</html>

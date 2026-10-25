@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationTitle>燃烧工作室</ApplicationTitle>
+    <Product>燃烧工作室</Product>
+    <AssemblyTitle>燃烧工作室</AssemblyTitle>
+    <RootNamespace>MochangStudio</RootNamespace>
+    <AssemblyName>BurnworkStudio</AssemblyName>
+    <Version>0.1.0</Version>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
+    <Resource Include="Assets\brand-mark.png" />
+    <Resource Include="Assets\home-center-bg.png" />
+  </ItemGroup>
+</Project>

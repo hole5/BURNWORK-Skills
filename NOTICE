@@ -1,0 +1,26 @@
+Notice for BURNWORK Studio (燃烧工作室)
+=====================================
+
+This product is a branded local studio built on the drama-skills open-source
+toolkit. Product name, icons, and newly authored studio UI/adapters may carry
+separate copyright of the studio distributor. The following notice is required
+by the MIT License of the upstream work and MUST be retained in distributions
+that include substantial portions of that work.
+
+Upstream
+--------
+
+drama-skills
+Copyright (c) 2026 drama-skills contributors
+License: MIT (see LICENSE)
+
+The five creator Markdown documents, production confirmation gate
+(prepare → confirm → run), and the short-drama skill suite originate from
+that project.
+
+Third-party references
+----------------------
+
+UI layout ideas (stage rail, character report density) were informed by
+public short-drama workbenches and offline HTML reports. No third-party
+source code from those products is vendored here.

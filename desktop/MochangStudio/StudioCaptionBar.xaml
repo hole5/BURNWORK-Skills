@@ -1,0 +1,19 @@
+<UserControl x:Class="MochangStudio.StudioCaptionBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="40">
+  <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
+    <DockPanel>
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+        <Button x:Name="MinBtn" Style="{StaticResource CaptionButton}" Content="–" Click="OnMin" ToolTip="最小化"/>
+        <Button x:Name="MaxBtn" Style="{StaticResource CaptionButton}" Content="□" Click="OnMax" ToolTip="最大化"/>
+        <Button x:Name="CloseBtn" Style="{StaticResource CaptionCloseButton}" Content="✕" Click="OnClose" ToolTip="关闭"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0" IsHitTestVisible="False">
+        <Image Source="/Assets/brand-mark.png" Width="18" Height="18" Stretch="UniformToFill" Margin="0,0,8,0"/>
+        <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   Foreground="{StaticResource InkBrush}" FontSize="13" VerticalAlignment="Center"/>
+      </StackPanel>
+    </DockPanel>
+  </Border>
+</UserControl>

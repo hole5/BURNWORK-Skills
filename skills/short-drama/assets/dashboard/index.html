@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN" data-skin="bench">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>燃烧工作室</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip" href="#view">跳到正文</a>
+  <header class="topbar" id="topbar"></header>
+  <nav class="tabbar" id="stagebar" aria-label="本集各阶段" hidden></nav>
+  <aside class="eplist" id="eplist" aria-label="分集" hidden></aside>
+  <main id="view" tabindex="-1" aria-live="polite"><div class="loading">正在打开燃烧工作室…</div></main>
+  <footer class="statusbar" id="statusbar"></footer>
+  <div class="sheet-scrim" id="scrim" hidden></div>
+  <aside class="inspector" id="inspector" aria-label="镜头详情" hidden></aside>
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="搜索" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="tip" id="tip" role="tooltip" hidden></div>
+  <div class="produce-drawer" id="produceDrawer" hidden>
+    <div class="produce-drawer-panel" role="dialog" aria-modal="true" aria-label="生产确认">
+      <div class="produce-drawer-h"><span>生产确认</span><button class="icon-btn" type="button" data-act="produce-cancel" aria-label="关闭">×</button></div>
+      <div id="producePreview" class="produce-preview"></div>
+    </div>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

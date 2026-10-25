@@ -1,0 +1,718 @@
+<Window x:Class="MochangStudio.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MochangStudio"
+        Title="燃烧工作室"
+        Icon="pack://application:,,,/Assets/brand-mark.png"
+        Width="1440" Height="900"
+        MinWidth="1100" MinHeight="700"
+        Background="{StaticResource BgBrush}"
+        WindowStyle="None"
+        Loaded="OnLoaded" Closing="OnWindowClosing">
+  <DockPanel>
+    <local:StudioCaptionBar DockPanel.Dock="Top" Title="燃烧工作室" ShowMinMax="True"/>
+    <Grid>
+    <!-- HOME -->
+    <Grid x:Name="HomeView">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="280"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,1,0">
+        <DockPanel>
+          <StackPanel DockPanel.Dock="Top" Margin="20,22,20,8">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,22">
+              <Border Width="36" Height="36" CornerRadius="8" ClipToBounds="True">
+                <Image Source="/Assets/brand-mark.png" Stretch="UniformToFill"/>
+              </Border>
+              <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                <TextBlock Text="燃烧工作室" FontWeight="SemiBold" FontSize="15" Foreground="{StaticResource InkBrush}"/>
+                <TextBlock Text="AI 短剧创作工作台" Foreground="{StaticResource SoftInkBrush}" FontSize="11"/>
+              </StackPanel>
+            </StackPanel>
+
+            <RadioButton x:Name="NavHome" Style="{StaticResource NavButton}" GroupName="homeNav" IsChecked="True" Checked="OnHomeNav">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="⌂" Width="22" Foreground="{StaticResource GoldBrush}"/>
+                <TextBlock Text="首页" Foreground="{StaticResource InkBrush}"/>
+              </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="NavProjects" Style="{StaticResource NavButton}" GroupName="homeNav" Checked="OnHomeNav">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="☰" Width="22" Foreground="{StaticResource SoftInkBrush}"/>
+                <TextBlock Text="项目" Foreground="{StaticResource InkBrush}"/>
+              </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="NavAssets" Style="{StaticResource NavButton}" GroupName="homeNav" Checked="OnHomeNav">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="◇" Width="22" Foreground="{StaticResource SoftInkBrush}"/>
+                <TextBlock Text="资产库" Foreground="{StaticResource InkBrush}"/>
+              </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="NavTemplates" Style="{StaticResource NavButton}" GroupName="homeNav" Checked="OnHomeNav">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="▦" Width="22" Foreground="{StaticResource SoftInkBrush}"/>
+                <TextBlock Text="创意模板" Foreground="{StaticResource InkBrush}"/>
+              </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="NavSettings" Style="{StaticResource NavButton}" GroupName="homeNav" Checked="OnHomeNav">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="⚙" Width="22" Foreground="{StaticResource SoftInkBrush}"/>
+                <TextBlock Text="设置" Foreground="{StaticResource InkBrush}"/>
+              </StackPanel>
+            </RadioButton>
+          </StackPanel>
+
+          <Button DockPanel.Dock="Bottom" Style="{StaticResource GoldButton}" Content="+ 小说项目"
+                  Height="44" MinHeight="44" Padding="0" Margin="16,8,16,18"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center" Click="OnNewNovelProject"/>
+
+          <DockPanel Margin="16,8,16,0">
+            <TextBlock DockPanel.Dock="Top" Text="最近打开" Foreground="{StaticResource SoftInkBrush}" FontSize="11" FontWeight="Bold" Margin="4,0,0,8"/>
+            <ListBox x:Name="RecentList" Background="Transparent" BorderThickness="0"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     MouseLeftButtonUp="OnRecentActivate"
+                     KeyDown="OnRecentKey">
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <Grid Margin="2,6">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="36"/>
+                      <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Width="32" Height="32" CornerRadius="6" Background="{StaticResource Surface2Brush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1">
+                      <TextBlock Text="{Binding Kind}" Foreground="{StaticResource GoldBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                      <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                      <TextBlock Foreground="{StaticResource SoftInkBrush}" FontSize="11" TextTrimming="CharacterEllipsis">
+                        <Run Text="{Binding Meta}"/><Run Text=" · "/><Run Text="{Binding When}"/>
+                      </TextBlock>
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                  <Setter Property="Padding" Value="6,2"/>
+                  <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                  <Setter Property="Background" Value="Transparent"/>
+                  <Setter Property="Template">
+                    <Setter.Value>
+                      <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="bd" Background="Transparent" CornerRadius="8" Padding="4" Cursor="Hand">
+                          <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                          <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource NavHover}"/>
+                          </Trigger>
+                          <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource GoldWash}"/>
+                          </Trigger>
+                        </ControlTemplate.Triggers>
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+              </ListBox.ItemContainerStyle>
+            </ListBox>
+          </DockPanel>
+        </DockPanel>
+      </Border>
+
+      <Grid Grid.Column="1">
+        <Image Source="/Assets/home-center-bg.png"
+               Stretch="Uniform"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Opacity="0.55"
+               IsHitTestVisible="False"/>
+        <Grid x:Name="HomeLanding">
+          <StackPanel MaxWidth="860" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="32,8,32,40">
+            <Grid Height="216" Width="680" HorizontalAlignment="Center" Margin="0,0,0,2" ClipToBounds="False">
+              <Border x:Name="HeroLeft" Width="200" Height="120" CornerRadius="14"
+                      BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Cursor="Hand"
+                      HorizontalAlignment="Center" Margin="-248,36,0,0"
+                      RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1"
+                      MouseEnter="OnHeroEnter" MouseLeave="OnHeroLeave" MouseLeftButtonUp="OnHeroClick">
+                <Border.Background>
+                  <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1C1C18" Offset="0"/>
+                    <GradientStop Color="#10100E" Offset="1"/>
+                  </LinearGradientBrush>
+                </Border.Background>
+                <Border.RenderTransform>
+                  <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <RotateTransform Angle="-11"/>
+                  </TransformGroup>
+                </Border.RenderTransform>
+                <Grid>
+                  <MediaElement x:Name="HeroLeftMedia" Stretch="UniformToFill" LoadedBehavior="Manual" UnloadedBehavior="Stop" Volume="0" IsHitTestVisible="False" Opacity="0.35"/>
+                  <Image x:Name="HeroLeftImage" Stretch="UniformToFill" IsHitTestVisible="False" Opacity="0.35"/>
+                  <Grid x:Name="HeroLeftArt" IsHitTestVisible="False">
+                    <Ellipse Width="52" Height="52" Fill="#4A453C" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-8,0,0"/>
+                    <Ellipse Width="52" Height="52" Stroke="{StaticResource MutedBrush}" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-8,0,0"/>
+                    <TextBlock x:Name="HeroLeftLabel" Text="SCENE 01" FontSize="11" Foreground="{StaticResource SoftInkBrush}"
+                               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="14,0,0,12"/>
+                  </Grid>
+                </Grid>
+              </Border>
+
+              <Border x:Name="HeroCenter" Width="224" Height="132" CornerRadius="14"
+                      BorderBrush="{StaticResource GoldBrush}" BorderThickness="1" Cursor="Hand"
+                      HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"
+                      RenderTransformOrigin="0.5,0.5" Panel.ZIndex="3"
+                      MouseEnter="OnHeroEnter" MouseLeave="OnHeroLeave" MouseLeftButtonUp="OnHeroClick">
+                <Border.Background>
+                  <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#24221C" Offset="0"/>
+                    <GradientStop Color="#141410" Offset="1"/>
+                  </LinearGradientBrush>
+                </Border.Background>
+                <Border.RenderTransform>
+                  <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <RotateTransform Angle="0"/>
+                  </TransformGroup>
+                </Border.RenderTransform>
+                <Grid>
+                  <MediaElement x:Name="HeroCenterMedia" Stretch="UniformToFill" LoadedBehavior="Manual" UnloadedBehavior="Stop" Volume="0" IsHitTestVisible="False" Opacity="0.35"/>
+                  <Image x:Name="HeroCenterImage" Stretch="UniformToFill" IsHitTestVisible="False" Opacity="0.35"/>
+                  <Grid x:Name="HeroCenterArt" IsHitTestVisible="False">
+                    <Ellipse Width="72" Height="72" Stroke="{StaticResource MutedBrush}" StrokeThickness="1.2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-12,0,0"/>
+                    <Ellipse Width="44" Height="44" Fill="#2C2922" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-12,0,0"/>
+                    <Path Data="M 0,0 L 0,16 L 14,8 Z" Fill="#D4C4A0" Stretch="Uniform" Width="14" Height="16"
+                          HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,-12,0,0"/>
+                    <TextBlock x:Name="HeroCenterLabel" Text="YOUR STORY" FontSize="11" FontWeight="SemiBold"
+                               Foreground="{StaticResource GoldBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16,0,0,12"/>
+                  </Grid>
+                </Grid>
+              </Border>
+
+              <Border x:Name="HeroRight" Width="200" Height="120" CornerRadius="14"
+                      BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Cursor="Hand"
+                      HorizontalAlignment="Center" Margin="248,36,0,0"
+                      RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1"
+                      MouseEnter="OnHeroEnter" MouseLeave="OnHeroLeave" MouseLeftButtonUp="OnHeroClick">
+                <Border.Background>
+                  <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1C1C18" Offset="0"/>
+                    <GradientStop Color="#10100E" Offset="1"/>
+                  </LinearGradientBrush>
+                </Border.Background>
+                <Border.RenderTransform>
+                  <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <RotateTransform Angle="11"/>
+                  </TransformGroup>
+                </Border.RenderTransform>
+                <Grid>
+                  <MediaElement x:Name="HeroRightMedia" Stretch="UniformToFill" LoadedBehavior="Manual" UnloadedBehavior="Stop" Volume="0" IsHitTestVisible="False" Opacity="0.35"/>
+                  <Image x:Name="HeroRightImage" Stretch="UniformToFill" IsHitTestVisible="False" Opacity="0.35"/>
+                  <Grid x:Name="HeroRightArt" IsHitTestVisible="False">
+                    <Ellipse Width="52" Height="52" Fill="#4A453C" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-8,0,0"/>
+                    <Ellipse Width="52" Height="52" Stroke="{StaticResource MutedBrush}" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-8,0,0"/>
+                    <TextBlock x:Name="HeroRightLabel" Text="LOOK" FontSize="11" Foreground="{StaticResource SoftInkBrush}"
+                               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="14,0,0,12"/>
+                  </Grid>
+                </Grid>
+              </Border>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,8">
+              <Border Width="5" Height="5" CornerRadius="1" Background="{StaticResource GoldBrush}" VerticalAlignment="Center" Margin="0,1,8,0"/>
+              <TextBlock Text="BURNWORK  ·  AI 短剧创作工作台"
+                         Foreground="{StaticResource GoldBrush}" FontSize="12" Opacity="0.88"/>
+            </StackPanel>
+
+            <TextBlock FontFamily="Georgia, Times New Roman, Songti SC, SimSun"
+                       FontSize="38" FontWeight="SemiBold" TextAlignment="Center"
+                       LineHeight="50" LineStackingStrategy="BlockLineHeight"
+                       Foreground="{StaticResource InkBrush}" Margin="0,0,0,10">
+              <Run Text="把脑海里的画面，"/>
+              <LineBreak/>
+              <Run Text="交给 "/>
+              <Run Text="BURNWORK" FontStyle="Italic"/>
+              <Run Text=" 拍出来"/>
+            </TextBlock>
+            <TextBlock Text="输入一个镜头、一段故事或完整创意。我们会先确认创作方案，再按项目需要生成剧本、角色、美术和分镜。"
+                       Foreground="{StaticResource SoftInkBrush}" FontSize="13" TextAlignment="Center" TextWrapping="NoWrap"
+                       HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="18" Padding="14,12"
+                    AllowDrop="True" PreviewDragOver="OnComposeDragOver" PreviewDrop="OnComposeDrop">
+              <DockPanel>
+                <DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,0" LastChildFill="False">
+                  <Button x:Name="ComposeAttachBtn" Style="{StaticResource GhostButton}" Content="+ 参考内容" Width="98" Margin="0,0,8,0" Padding="10,6" Click="OnAttachRef"/>
+                  <TextBlock Text="创意项目" Foreground="{StaticResource SoftInkBrush}" VerticalAlignment="Center" Margin="4,0,12,0"/>
+                  <ToggleButton x:Name="Ratio169" Style="{StaticResource PillToggle}" Content="16:9" Width="98" Height="32" Click="OnRatioToggle"/>
+                  <ToggleButton x:Name="Ratio916" Style="{StaticResource PillToggle}" Content="9:16 默认" Width="98" Height="32" IsChecked="True" Click="OnRatioToggle"/>
+                  <CheckBox x:Name="NeedCast" Content="需要角色" IsChecked="True" Foreground="{StaticResource InkBrush}" Margin="8,0,10,0" VerticalAlignment="Center"/>
+                  <CheckBox x:Name="NeedArt" Content="需要美术" IsChecked="True" Foreground="{StaticResource InkBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                  <Button DockPanel.Dock="Right" Width="40" Height="40" Margin="8,0,0,0" Click="OnComposeSubmit"
+                          Background="{StaticResource GoldWash}" BorderBrush="{StaticResource GoldBrush}" BorderThickness="1" Cursor="Hand">
+                    <Button.Template>
+                      <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="20">
+                          <TextBlock Text="↑" Foreground="{StaticResource GoldBrush}" FontSize="18" FontWeight="Bold"
+                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                      </ControlTemplate>
+                    </Button.Template>
+                  </Button>
+                </DockPanel>
+                <WrapPanel x:Name="ComposeAttachHost" DockPanel.Dock="Bottom" Margin="4,8,4,0"/>
+                <TextBox x:Name="ComposeBox" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="56" BorderThickness="0"
+                         Background="Transparent" Foreground="{StaticResource InkBrush}" CaretBrush="{StaticResource GoldBrush}"
+                         FontSize="15" Padding="4" KeyDown="OnComposeKey"
+                         AllowDrop="True" PreviewDragOver="OnComposeDragOver" PreviewDrop="OnComposeDrop"
+                         Tag="输入你的镜头、画面或故事。也可以从左侧打开已有项目。"/>
+              </DockPanel>
+            </Border>
+            <TextBlock Margin="8,8,8,0" Foreground="{StaticResource SoftInkBrush}" FontSize="11" TextAlignment="Center"
+                       Text="Ctrl+Enter 创建项目并进入工作台 · 先确认计划，再写五份创作文档"/>
+            <TextBlock x:Name="HomeStatus" Margin="0,4,0,0" Foreground="{StaticResource SoftInkBrush}" FontSize="11" TextAlignment="Center" TextWrapping="Wrap"/>
+          </StackPanel>
+        </Grid>
+
+        <DockPanel x:Name="HomeProjects" Visibility="Collapsed" Margin="36,28,36,80">
+          <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+            <TextBlock Text="项目" FontSize="28" FontWeight="SemiBold"/>
+            <TextBlock x:Name="ProjectsDirHint" Foreground="{StaticResource SoftInkBrush}" Margin="0,8,0,0" TextWrapping="Wrap"
+                       Text="统一放在工作室的 projects 文件夹。左键打开，右键打开或删除。"/>
+            <TextBlock x:Name="ProjectsEmptyHint" Foreground="{StaticResource SoftInkBrush}" Margin="0,16,0,0" TextWrapping="Wrap" Visibility="Collapsed"/>
+          </StackPanel>
+          <ScrollViewer x:Name="ProjectCardsHost" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <WrapPanel x:Name="ProjectPanel"/>
+          </ScrollViewer>
+        </DockPanel>
+
+        <DockPanel x:Name="HomeAssets" Visibility="Collapsed" Margin="36,28,36,80">
+          <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+            <TextBlock Text="资产库" FontSize="28" FontWeight="SemiBold"/>
+            <TextBlock Text="项目制作成果与工作室 assets。点卡片打开所属项目。" Foreground="{StaticResource SoftInkBrush}" Margin="0,6,0,0" TextWrapping="Wrap"/>
+            <TextBlock x:Name="AssetEmptyHint" Text="还没有媒体。生产完成后会出现在这里。" Foreground="{StaticResource SoftInkBrush}" Margin="0,16,0,0" Visibility="Collapsed"/>
+          </StackPanel>
+          <ScrollViewer x:Name="AssetCardsHost" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <WrapPanel x:Name="AssetPanel"/>
+          </ScrollViewer>
+        </DockPanel>
+
+        <DockPanel x:Name="HomeTemplates" Visibility="Collapsed" Margin="36,28,36,80">
+          <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+            <TextBlock Text="创意模板" FontSize="28" FontWeight="SemiBold"/>
+            <TextBlock Text="选一个起点，填入首页输入框后可直接创建项目。" Foreground="{StaticResource SoftInkBrush}" Margin="0,6,0,0"/>
+          </StackPanel>
+          <WrapPanel x:Name="TemplatePanel"/>
+        </DockPanel>
+
+        <Grid x:Name="HomeSettings" Visibility="Collapsed" Margin="28,24,28,80">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,1,0" Padding="8,0,16,0">
+            <StackPanel>
+              <TextBlock Text="设置" FontSize="22" FontWeight="SemiBold" Margin="0,0,0,16"/>
+              <RadioButton x:Name="SetNavProject" Style="{StaticResource NavButton}" GroupName="setNav" IsChecked="True" Checked="OnSettingsNav">
+                <TextBlock Text="1. 项目"/>
+              </RadioButton>
+              <RadioButton x:Name="SetNavApi" Style="{StaticResource NavButton}" GroupName="setNav" Checked="OnSettingsNav">
+                <TextBlock Text="2. API"/>
+              </RadioButton>
+              <RadioButton x:Name="SetNavSkills" Style="{StaticResource NavButton}" GroupName="setNav" Checked="OnSettingsNav">
+                <TextBlock Text="3. SKILLS"/>
+              </RadioButton>
+              <RadioButton x:Name="SetNavProduce" Style="{StaticResource NavButton}" GroupName="setNav" Checked="OnSettingsNav">
+                <TextBlock Text="4. 生产"/>
+              </RadioButton>
+            </StackPanel>
+          </Border>
+          <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="28,0,0,0">
+            <StackPanel>
+              <StackPanel x:Name="SetPanelProject">
+                <TextBlock Text="目录分仓" FontSize="22" FontWeight="SemiBold"/>
+                <TextBlock Text="用户内容与仓库代码分开。工作台只扫描「项目文件夹」里的 short-drama.json。" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,8,0,16"/>
+                <TextBlock Text="工作室根目录" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <DockPanel Margin="0,6,0,12">
+                  <Button DockPanel.Dock="Right" Style="{StaticResource GhostButton}" Content="浏览…" Click="OnBrowseStudioRoot" Margin="8,0,0,0" Padding="12,8"/>
+                  <TextBox x:Name="StudioRootBox" Padding="8"/>
+                </DockPanel>
+                <TextBlock Text="项目文件夹（全部短剧项目）" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <DockPanel Margin="0,6,0,12">
+                  <Button DockPanel.Dock="Right" Style="{StaticResource GhostButton}" Content="浏览…" Click="OnBrowseProjectsDir" Margin="8,0,0,0" Padding="12,8"/>
+                  <TextBox x:Name="ProjectsDirBox" Padding="8"/>
+                </DockPanel>
+                <TextBlock Text="SKILLS 文件夹" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <DockPanel Margin="0,6,0,12">
+                  <Button DockPanel.Dock="Right" Style="{StaticResource GhostButton}" Content="浏览…" Click="OnBrowseSkillsDir" Margin="8,0,0,0" Padding="12,8"/>
+                  <TextBox x:Name="SkillsDirBox" Padding="8"/>
+                </DockPanel>
+                <TextBlock Text="资产文件夹" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <DockPanel Margin="0,6,0,12">
+                  <Button DockPanel.Dock="Right" Style="{StaticResource GhostButton}" Content="浏览…" Click="OnBrowseAssetsDir" Margin="8,0,0,0" Padding="12,8"/>
+                  <TextBox x:Name="AssetsDirBox" Padding="8"/>
+                </DockPanel>
+                <Button Style="{StaticResource GoldButton}" Content="保存目录并重启工作台对接" Click="OnSaveLayout" HorizontalAlignment="Left" Padding="14,8" Margin="0"/>
+                <TextBlock x:Name="WorkspaceHint" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,12,0,0"/>
+              </StackPanel>
+              <StackPanel x:Name="SetPanelApi" Visibility="Collapsed">
+                <TextBlock Text="API · 聊天模型" FontSize="22" FontWeight="SemiBold"/>
+                <TextBlock Text="OpenAI 兼容 /chat/completions。可添加多套模型，在聊天栏下拉选择。" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,8,0,16"/>
+                <ListBox x:Name="ApiProfileList" Height="140" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" DisplayMemberPath="Name" SelectionChanged="OnApiProfileSelect"/>
+                <Grid Margin="0,14,0,0">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <TextBlock Text="名称" VerticalAlignment="Center"/>
+                  <TextBox x:Name="ApiNameBox" Grid.Column="1" Margin="0,0,0,8" Padding="6"/>
+                  <TextBlock Grid.Row="1" Text="接口" VerticalAlignment="Center"/>
+                  <TextBox x:Name="ApiUrlBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,8" Padding="6"/>
+                  <TextBlock Grid.Row="2" Text="密钥" VerticalAlignment="Center"/>
+                  <PasswordBox x:Name="ApiKeyBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8" Padding="6"/>
+                  <TextBlock Grid.Row="3" Text="模型" VerticalAlignment="Center"/>
+                  <TextBox x:Name="ApiModelBox" Grid.Row="3" Grid.Column="1" Padding="6"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                  <Button Style="{StaticResource GoldButton}" Content="保存为当前" Click="OnApiSaveCurrent"/>
+                  <Button Style="{StaticResource GhostButton}" Content="添加新模型" Click="OnApiAdd"/>
+                  <Button Style="{StaticResource GhostButton}" Content="删除选中" Click="OnApiDelete"/>
+                </StackPanel>
+                <TextBlock x:Name="ApiHint" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,12,0,0"/>
+              </StackPanel>
+              <StackPanel x:Name="SetPanelSkills" Visibility="Collapsed">
+                <TextBlock Text="SKILLS" FontSize="22" FontWeight="SemiBold"/>
+                <TextBlock Text="SKILLS 统一放在设置里指定的技能文件夹。添加后工作台与设置列表都读这个目录。" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,8,0,16"/>
+                <ListBox x:Name="SkillList" Height="180" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1"/>
+                <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                  <Button Style="{StaticResource GoldButton}" Content="添加技能文件夹…" Click="OnAddSkill"/>
+                  <Button Style="{StaticResource GhostButton}" Content="从套件导入…" Click="OnImportBundledSkill"/>
+                </StackPanel>
+                <TextBlock x:Name="SkillHint" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,12,0,0"/>
+              </StackPanel>
+              <StackPanel x:Name="SetPanelProduce" Visibility="Collapsed">
+                <TextBlock Text="生产 · 出图与出视频" FontSize="22" FontWeight="SemiBold"/>
+                <TextBlock Text="「启动」只选用当前轨道要用的后端，不会打开 ComfyUI 进程。密钥写在项目外，不进短剧文件夹。" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,8,0,12"/>
+                <TextBlock x:Name="ProduceActiveHint" Foreground="{StaticResource GoldBrush}" TextWrapping="Wrap" Margin="0,0,0,12" Text="当前：出图未启动 · 出视频未启动"/>
+
+                <TextBlock Text="生产模式" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="限制写在服务端：默认确认闸门；会话/始终自动才允许小烧在聊天里预览后提交。连续写文档不等于自动生产。" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,6,0,8"/>
+                <StackPanel Margin="0,0,0,8">
+                  <RadioButton x:Name="ProduceModeGate" GroupName="produceMode" Content="确认闸门（默认）· 聊天只预览，须在「生产」页确认" IsChecked="True" Margin="0,0,0,6" Checked="OnProduceModeChanged"/>
+                  <RadioButton x:Name="ProduceModeSession" GroupName="produceMode" Content="会话授权自动 · 本会话勾选「允许小烧自动生产」后可自动提交" Margin="0,0,0,6" Checked="OnProduceModeChanged"/>
+                  <RadioButton x:Name="ProduceModeAlways" GroupName="produceMode" Content="始终自动（高风险）· 点名出图/出视频可直接跑" Margin="0,0,0,6" Checked="OnProduceModeChanged"/>
+                </StackPanel>
+                <CheckBox x:Name="AllowConfigAgentBox" Content="允许小烧改本机配置（API / ComfyUI / 云端；每次预览确认后落盘）" Margin="0,0,0,8" Foreground="{StaticResource InkBrush}" Checked="OnAllowConfigAgentChanged" Unchecked="OnAllowConfigAgentChanged"/>
+                <TextBlock x:Name="ProduceEnvHint" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,0,0,8" Text="环境：检测中…"/>
+                <Button Style="{StaticResource GhostButton}" Content="一键测连通（API · 出图 · 出视频）" Click="OnProbeEnvironment" HorizontalAlignment="Left" Margin="0,0,0,16"/>
+
+                <TextBlock Text="本机 ComfyUI" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="地址" Foreground="{StaticResource SoftInkBrush}" FontSize="12" Margin="0,8,0,0"/>
+                <TextBox x:Name="ComfyUrlBox" Padding="8" Margin="0,6,0,8" Text="http://127.0.0.1:8188"/>
+                <TextBlock Text="出图工作流 JSON（ComfyUI 另存为 API 格式）" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <DockPanel Margin="0,6,0,8">
+                  <Button DockPanel.Dock="Right" Style="{StaticResource GhostButton}" Content="浏览…" Click="OnBrowseComfyImageWf" Margin="8,0,0,0" Padding="12,8"/>
+                  <TextBox x:Name="ComfyImageWfBox" Padding="8"/>
+                </DockPanel>
+                <TextBlock Text="出视频工作流 JSON" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <DockPanel Margin="0,6,0,8">
+                  <Button DockPanel.Dock="Right" Style="{StaticResource GhostButton}" Content="浏览…" Click="OnBrowseComfyVideoWf" Margin="8,0,0,0" Padding="12,8"/>
+                  <TextBox x:Name="ComfyVideoWfBox" Padding="8"/>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                  <Button Style="{StaticResource GoldButton}" Content="保存 ComfyUI" Click="OnSaveComfyui"/>
+                  <Button Style="{StaticResource GhostButton}" Content="检测本机" Click="OnProbeComfyui"/>
+                  <Button Style="{StaticResource GhostButton}" Content="启动出图" Click="OnStartComfyImage"/>
+                  <Button Style="{StaticResource GhostButton}" Content="启动出视频" Click="OnStartComfyVideo"/>
+                </StackPanel>
+
+                <TextBlock Text="云端出图 · GPT Image 2" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="接口（可空，须 HTTPS）" Foreground="{StaticResource SoftInkBrush}" FontSize="12" Margin="0,8,0,0"/>
+                <TextBox x:Name="CloudImageUrlBox" Padding="8" Margin="0,6,0,8"/>
+                <TextBlock Text="密钥（已保存则留空不改）" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <PasswordBox x:Name="CloudImageKeyBox" Padding="8" Margin="0,6,0,8"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                  <Button Style="{StaticResource GoldButton}" Content="保存云端出图" Click="OnSaveCloudImage"/>
+                  <Button Style="{StaticResource GhostButton}" Content="启动出图" Click="OnStartCloudImage"/>
+                </StackPanel>
+
+                <TextBlock Text="云端视频 · MiniMax H3" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="密钥（已保存则留空不改）" Foreground="{StaticResource SoftInkBrush}" FontSize="12" Margin="0,8,0,0"/>
+                <PasswordBox x:Name="CloudVideoKeyBox" Padding="8" Margin="0,6,0,8"/>
+                <TextBlock Text="视频模型 ID" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <TextBox x:Name="CloudVideoModelBox" Padding="8" Margin="0,6,0,8"/>
+                <TextBlock Text="分辨率集合（逗号分隔，例如 768P）" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                <TextBox x:Name="CloudVideoResBox" Padding="8" Margin="0,6,0,8"/>
+                <Grid Margin="0,0,0,8">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <StackPanel>
+                    <TextBlock Text="最短秒数" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                    <TextBox x:Name="CloudVideoMinBox" Padding="8" Margin="0,6,0,0"/>
+                  </StackPanel>
+                  <StackPanel Grid.Column="2">
+                    <TextBlock Text="最长秒数" Foreground="{StaticResource SoftInkBrush}" FontSize="12"/>
+                    <TextBox x:Name="CloudVideoMaxBox" Padding="8" Margin="0,6,0,0"/>
+                  </StackPanel>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                  <Button Style="{StaticResource GoldButton}" Content="保存云端视频" Click="OnSaveCloudVideo"/>
+                  <Button Style="{StaticResource GhostButton}" Content="启动出视频" Click="OnStartCloudVideo"/>
+                </StackPanel>
+                <TextBlock x:Name="ProduceHint" Foreground="{StaticResource SoftInkBrush}" TextWrapping="Wrap" Margin="0,12,0,0"/>
+              </StackPanel>
+            </StackPanel>
+          </ScrollViewer>
+        </Grid>
+
+        <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,12"
+                Background="{StaticResource Surface2Brush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1"
+                CornerRadius="16" Padding="14,6">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="/Assets/brand-mark.png" Width="18" Height="18" Stretch="UniformToFill" Margin="0,0,8,0"/>
+            <TextBlock x:Name="LatencyText" Text="本机" Foreground="{StaticResource SoftInkBrush}"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Grid>
+
+    <!-- WORKBENCH -->
+    <DockPanel x:Name="WorkbenchView" Visibility="Collapsed">
+      <Border DockPanel.Dock="Top" Height="52" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1" Padding="12,0">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Style="{StaticResource GhostButton}" Content="← 首页" Click="OnBackHome" Margin="0,0,10,0" Padding="10,5"/>
+            <Border Width="28" Height="28" CornerRadius="6" ClipToBounds="True" Margin="0,0,10,0">
+              <Image Source="/Assets/brand-mark.png" Stretch="UniformToFill"/>
+            </Border>
+            <TextBlock Text="工作台  ›" Foreground="{StaticResource SoftInkBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBlock x:Name="ProjectTitle" Text="—" FontWeight="SemiBold" VerticalAlignment="Center"/>
+          </StackPanel>
+          <TextBlock Grid.Column="1" x:Name="StageKicker" Foreground="{StaticResource SoftInkBrush}" VerticalAlignment="Center" Margin="24,0,0,0"/>
+          <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Style="{StaticResource GhostButton}" Content="聊天设置" Click="OnChatSettings" Margin="0,0,8,0" Padding="10,5"/>
+            <Button Style="{StaticResource GhostButton}" Content="资产库" Click="OnFiles" Padding="10,5" Margin="0"/>
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <Border DockPanel.Dock="Bottom" Height="40" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="16,0">
+        <Grid>
+          <TextBlock x:Name="StatusText" VerticalAlignment="Center" Foreground="{StaticResource SoftInkBrush}"
+                     Text="分镜、生成状态和素材记录都在项目里"/>
+          <TextBlock x:Name="QuotaText" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource SoftInkBrush}"/>
+        </Grid>
+      </Border>
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="96"/>
+          <ColumnDefinition Width="240"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="340"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,1,0">
+          <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="StageRail" Margin="0,12,0,12"/>
+          </ScrollViewer>
+        </Border>
+
+        <Border Grid.Column="1" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,1,0" Background="{StaticResource SurfaceBrush}">
+          <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Margin="16,16,16,8">
+              <TextBlock Text="分集" Foreground="{StaticResource SoftInkBrush}" FontSize="11" FontWeight="Bold"/>
+              <TextBlock Text="节奏与覆盖" FontSize="18" FontWeight="SemiBold" Margin="0,8,0,4"/>
+              <TextBlock x:Name="PendingHint" Foreground="{StaticResource GoldBrush}"/>
+            </StackPanel>
+            <ListBox x:Name="EpisodeList" Background="Transparent" BorderThickness="0" SelectionChanged="OnEpisodeChanged" Margin="8,0,8,12">
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <Grid Margin="4,6">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                      <TextBlock Text="{Binding Id}" FontFamily="Consolas" FontWeight="Bold"/>
+                      <TextBlock Text="{Binding Title}" Foreground="{StaticResource SoftInkBrush}" TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" Text="{Binding Sub}" Foreground="{StaticResource SoftInkBrush}" VerticalAlignment="Center"/>
+                  </Grid>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                  <Setter Property="Background" Value="Transparent"/>
+                  <Setter Property="Padding" Value="6,2"/>
+                  <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                  <Setter Property="Template">
+                    <Setter.Value>
+                      <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="bd" Background="Transparent" CornerRadius="6" Padding="4">
+                          <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                          <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource GoldWash}"/>
+                          </Trigger>
+                        </ControlTemplate.Triggers>
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+              </ListBox.ItemContainerStyle>
+            </ListBox>
+          </DockPanel>
+        </Border>
+
+        <Grid Grid.Column="2">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <StackPanel Margin="28,20,28,0">
+            <TextBlock x:Name="MainHeading" Text="分镜" FontSize="32" FontWeight="Bold" Margin="0,4,0,10"/>
+            <WrapPanel x:Name="ActionBar"/>
+            <TextBlock x:Name="LeadText" TextWrapping="Wrap" Foreground="{StaticResource SoftInkBrush}" Margin="0,4,0,12"/>
+          </StackPanel>
+          <ScrollViewer Grid.Row="1" Margin="28,0,28,16" VerticalScrollBarVisibility="Auto">
+            <ContentControl x:Name="MainHost"/>
+          </ScrollViewer>
+        </Grid>
+
+        <Border Grid.Column="3" BorderBrush="{StaticResource LineBrush}" BorderThickness="1,0,0,0" Background="{StaticResource Surface2Brush}"
+                AllowDrop="True" PreviewDragOver="OnChatDragOver" PreviewDrop="OnChatDrop">
+          <DockPanel>
+            <Border DockPanel.Dock="Top" Padding="14,12" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
+              <TextBlock Text="小烧助手" FontWeight="SemiBold"/>
+            </Border>
+            <Border x:Name="PlanBar" DockPanel.Dock="Top" Padding="12,10" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1" Visibility="Collapsed">
+              <StackPanel>
+                <TextBlock Text="多步计划" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                <ItemsControl x:Name="PlanList">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Margin="0,2" TextWrapping="Wrap" Foreground="{StaticResource SoftInkBrush}">
+                        <Run Text="{Binding State}"/>
+                        <Run Text=" · "/>
+                        <Run Text="{Binding Title}"/>
+                      </TextBlock>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                  <Button Style="{StaticResource GoldButton}" Content="执行下一步" Click="OnPlanNext" Margin="0,0,8,0"/>
+                  <CheckBox x:Name="AllowChainBox" Content="本会话连续写文档" VerticalAlignment="Center" Margin="0,0,12,0" Checked="OnAllowChain" Unchecked="OnAllowChain"/>
+                  <CheckBox x:Name="AllowSessionProduceBox" Content="本会话允许小烧自动生产" VerticalAlignment="Center" Checked="OnSessionProduceAuth" Unchecked="OnSessionProduceAuth"/>
+                </StackPanel>
+              </StackPanel>
+            </Border>
+            <Border DockPanel.Dock="Bottom" Padding="12,10,12,12">
+              <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}"
+                      BorderThickness="1" CornerRadius="16" Padding="10,8,10,8"
+                      AllowDrop="True" PreviewDragOver="OnChatDragOver" PreviewDrop="OnChatDrop">
+                <StackPanel>
+                  <WrapPanel x:Name="ChatAttachHost" Margin="2,0,2,6" Visibility="Collapsed"/>
+                  <Grid>
+                    <TextBox x:Name="ChatInput" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="44" MaxHeight="140"
+                             Background="Transparent" BorderThickness="0" Padding="4,4,4,8"
+                             Foreground="{StaticResource InkBrush}" CaretBrush="{StaticResource GoldBrush}"
+                             FontSize="14" KeyDown="OnChatKey" TextChanged="OnChatInputChanged"/>
+                    <TextBlock x:Name="ChatPlaceholder" Text="问小烧，或点阶段芯片…" IsHitTestVisible="False"
+                               Foreground="{StaticResource SoftInkBrush}" Margin="8,8,8,0" FontSize="14"/>
+                  </Grid>
+                  <DockPanel LastChildFill="False" Margin="0,4,0,0">
+                    <ComboBox x:Name="ChatModelBox" DockPanel.Dock="Left" MinWidth="108" MaxWidth="160" Height="28"
+                              VerticalAlignment="Center"
+                              SelectionChanged="OnChatModelPicked" ToolTip="当前模型">
+                      <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding Name}" Foreground="{StaticResource InkBrush}"/>
+                        </DataTemplate>
+                      </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button x:Name="ChatSendButton" DockPanel.Dock="Right" Width="32" Height="32" MinHeight="32"
+                            Padding="0" Margin="0" Click="OnSendChat" Cursor="Hand" ToolTip="发送"
+                            Background="{StaticResource GoldWash}" BorderBrush="{StaticResource GoldBrush}" BorderThickness="1"
+                            Content="↑">
+                      <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="16">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              TextBlock.Foreground="{StaticResource GoldBrush}"
+                                              TextBlock.FontSize="16" TextBlock.FontWeight="Bold"/>
+                          </Border>
+                        </ControlTemplate>
+                      </Button.Template>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Width="32" Height="32" MinHeight="32" Padding="0" Margin="0,0,8,0"
+                            Style="{StaticResource GhostButton}" ToolTip="添加小说原文或参考图" Click="OnChatAttach">
+                      <Viewbox Width="15" Height="15">
+                        <Canvas Width="24" Height="24">
+                          <Path Stroke="{StaticResource SoftInkBrush}" StrokeThickness="1.8" Fill="Transparent"
+                                StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                                Data="M8,13 L14,7 C15.5,5.5 18,5.5 19.5,7 C21,8.5 21,11 19.5,12.5 L10,22 C8,24 5,24 3,22 C1,20 1,17 3,15 L13,5"/>
+                        </Canvas>
+                      </Viewbox>
+                    </Button>
+                  </DockPanel>
+                </StackPanel>
+              </Border>
+            </Border>
+            <ScrollViewer x:Name="ChatScroll" VerticalScrollBarVisibility="Auto" Padding="12">
+              <ItemsControl x:Name="ChatList">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border Margin="0,0,0,10" Padding="10,8" CornerRadius="8"
+                            Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1">
+                      <StackPanel>
+                        <TextBlock Text="{Binding Label}" Foreground="{StaticResource GoldBrush}" FontSize="11" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Trace}" Foreground="{StaticResource GoldBrush}" FontSize="11"
+                                   TextWrapping="Wrap" Margin="0,4,0,0">
+                          <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                              <Setter Property="Visibility" Value="Collapsed"/>
+                              <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowTrace}" Value="True">
+                                  <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                              </Style.Triggers>
+                            </Style>
+                          </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </DockPanel>
+        </Border>
+      </Grid>
+    </DockPanel>
+  </Grid>
+  </DockPanel>
+</Window>
