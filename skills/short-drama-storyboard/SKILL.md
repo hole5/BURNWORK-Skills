@@ -47,6 +47,7 @@ license: MIT
 
 ## 工作流
 
+0. **阐述下沉**：按 [导演阐述下沉检查](references/director-brief-sink.md) 读取 `项目开发/director-brief.md`（若有），抽出镜头语法/禁区/回报节奏后再设计；无阐述不阻断，末报标明「未锁定导演阐述」。导演 pass 或整集正式分镜时，**每一场**做 Coverage Audition。
 1. 读取已接受的目标模型原生时长区间，再确认每个场景动作、对白、声音、画面文字和转折由哪些镜头承载。
 2. 确定观众何时知道什么、对齐谁、空间如何揭示、转折落在哪个可见动作。
    剧本或 Brief 用“前半段 / 后半段 / 前三分之一 / 最后 N 秒”等相对时间限定首次出现、释放或禁止时，
@@ -155,6 +156,7 @@ license: MIT
 - 阶段边界与规则分级：[阶段契约](references/stage-contract.md)
 - 镜头职责、切镜理由、镜长推导、对白覆盖和边界：[镜头手艺](references/shot-craft.md)
 - 实际制作所需的镜头语法：[生产镜头语法](references/production-shot-grammar.md)
+- 阐述约束如何进入分镜：[导演阐述下沉检查](references/director-brief-sink.md)
 - 关键场次比较导演方案：[场次视觉计划](references/scene-visual-plan.md)
 - 检查原文是否都有画面承载：[Coverage Audition](references/coverage-audition.md)
 - 多人、群体和复杂空间调度：[调度手册](references/blocking-playbooks.md)

@@ -1,6 +1,6 @@
 ---
 name: short-drama
-description: 基于文件系统初始化和继续短剧或漫剧项目，提供 creator-first 五文档路由、本地燃烧工作室、制作形态与 Look Development 决策。用户提出“创建/继续短剧项目”“看进度/下一步”“做 Look Development”“打开 dashboard/工作室/短剧创作台”“导出制作资料”，或任务跨多个创作阶段时使用；明确的写作、资产、提示词、分镜、剪辑或审查请求由对应子 skill 直接处理。
+description: 基于文件系统初始化和继续短剧或漫剧项目，提供 creator-first 五文档路由、导演总控 pass、本地燃烧工作室、制作形态与 Look Development 决策。用户提出“创建/继续短剧项目”“看进度/下一步”“导演台/导演 pass”“做 Look Development”“打开 dashboard/工作室/短剧创作台”“导出制作资料”，或任务跨多个创作阶段时使用；明确的写作、资产、提示词、分镜、剪辑或审查请求由对应子 skill 直接处理。
 license: MIT
 ---
 
@@ -20,6 +20,7 @@ license: MIT
 
 | 用户要做什么 | owner / 行为 |
 |---|---|
+| 导演台 / 导演 pass / 电影级过一遍本集 | 本技能按 [导演总控 pass](references/director-pass.md) 编排；**不**自动生产 |
 | 开发点子、系列承诺、改编和分集地图 | `$short-drama-develop`，仅在用户需要时 |
 | 已有多集完整剧本/散稿识别分集 | `$short-drama-develop` 按实际边界建立临时索引 |
 | 分析长篇原著 | `$short-drama-novel-analyze`，仅在用户需要时 |
@@ -137,6 +138,7 @@ Look Development 是可选分支，不是进入图片提示词或分镜的固定
 
 按问题只读取一份相关知识：
 
+- 导演台一次过本集：[导演总控 pass](references/director-pass.md)
 - 规则分级与 owner 路由：[规则与路由索引](references/knowhow-index.md)
 - 输出语言、稳定 ID、所有权与安全边界：[契约与所有权](references/contract-and-ownership.md)
 - 实拍、二维、三维、水墨、Q 版、国漫的形态差异：[制作形态](references/production-form-profiles.md)

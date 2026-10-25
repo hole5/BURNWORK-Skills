@@ -54,6 +54,7 @@ license: MIT
 - 原文落实、镜头、关键帧与视频运动：[视觉运动审查表](references/rubric-visual-motion.md)
 - 完整审查方法：[审查方法](references/review-method.md)
 - 制作端常见缺陷：[生产质量门](references/production-quality-gates.md)
+- 失败后最便宜修复阶梯：[QC 修复码](references/qc-repair-codes.md)
 - 授权生产观察的项目内校准：[项目校准](references/project-calibration.md)
 - 模板感、重复手法或 AI 味：[反模板修订](references/anti-template-repair.md)
 - 阶段边界、参考媒体与规则表：[阶段契约](references/stage-contract.md)

@@ -173,6 +173,9 @@ adapter 配置必须在项目外，只包含 argv 命令和超时；凭据由 ad
 构图与角色一致、画面本身合规的图；音频被拒重录那句台词。改动写进新的 job 重新 prepare，让创
 作者在预览里看到改的是哪一项再确认；原样重投的那次确认不产生修复，只产生一笔费用。重复内容
 缺陷回到对应 prompt/spec owner。
+内容/连续性类失败（换脸、越轴、持物漂移、口型等）先按
+`$short-drama-review` 的 [QC 修复码](../short-drama-review/references/qc-repair-codes.md)
+选最便宜修复，再重新 prepare；同一镜同一码三振后停止自动重试并交给创作者。
 生产结束后不自动进入剪辑。素材要装配成成片时由用户点名 `$short-drama-edit`；它只取舍已有帧，
 不回头改本阶段的 job，也不生成新素材。
 如需质量复核，报告可把已有结果另行交给 `$short-drama-review`；不要在生产调用中自动启动复核。

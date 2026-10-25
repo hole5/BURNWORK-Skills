@@ -2144,6 +2144,7 @@ public partial class MainWindow : Window
         }
         if (_stage == "overview")
         {
+            AddChip("导演 pass", () => QueueSkill("short-drama", $"请按导演总控 pass 过一遍 {_episodeId ?? "本集"}：阐述下沉、分镜 Coverage、提示词对账与自检；不要自动生产。"));
             AddChip("原著分析", () => QueueSkill("short-drama-novel-analyze", "请对当前项目关联的小说/原文做原著分析。"));
             AddChip("系列开发", () => QueueSkill("short-drama-develop", "请按题材补齐系列开发文档（改编方案、创作简报、导演阐述、故事引擎与分集地图）。"));
             AddChip("打开分镜", () => { _stage = "board"; SyncRail(); RenderMain(); });

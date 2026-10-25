@@ -28,14 +28,15 @@ DOC_BY_SKILL = {
 }
 
 PLAN_HINTS = (
+    ("short-drama", ("导演台", "导演 pass", "电影级过一遍", "导演工作流")),
     ("short-drama-novel-analyze", ("原著", "拆书", "分析小说")),
-    ("short-drama-develop", ("分集地图", "系列大纲", "改编方案")),
+    ("short-drama-develop", ("分集地图", "系列大纲", "改编方案", "导演阐述")),
     ("short-drama-write", ("写剧本", "改剧本", "剧本.md", "对白")),
     ("short-drama-assets", ("视觉设定", "拆角色", "拆资产", "造型", "道具")),
     ("short-drama-storyboard", ("写分镜", "出分镜", "分镜.md", "镜头表")),
     ("short-drama-image-prompts", ("图片提示词", "设定图提示")),
     ("short-drama-video-prompts", ("视频提示词", "运镜提示")),
-    ("short-drama-review", ("审稿", "审查")),
+    ("short-drama-review", ("审稿", "审查", "QC")),
 )
 
 TOOLS = [
